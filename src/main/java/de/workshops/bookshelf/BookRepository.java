@@ -33,4 +33,8 @@ public class BookRepository {
     public List<Book> getAllBooks() {
         return books;
     }
+
+    public void saveBook(Book book) {
+        books.add(book);
+    }
 }
