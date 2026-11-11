@@ -1,16 +1,21 @@
 package de.workshops.bookshelf;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class BookService {
 
     private final BookRepository repository;
 
-    public BookService(BookRepository repository) {
+    private final BookshelfProperties properties;
+
+    public BookService(BookRepository repository, BookshelfProperties properties) {
         this.repository = repository;
+        this.properties = properties;
     }
 
     public List<Book> getAllBooks() {
@@ -46,6 +51,8 @@ public class BookService {
     }
 
     public void saveBook(Book book) {
+        log.info("ISBN lookup as {} using {} ...", properties.getOwner(), properties.getIsbnLookup().getUrl());
+
         repository.saveBook(book);
     }
 }
