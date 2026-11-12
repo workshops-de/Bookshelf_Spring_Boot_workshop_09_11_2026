@@ -39,9 +39,11 @@ class BookRestControllerRestClientTest {
                 .exchange()
                 .expectStatus().isCreated();
 
-        restClient
+        Book savedBook = restClient
                 .get().uri("/book/{isbn}", newBook.getIsbn())
                 .exchangeSuccessfully()
-                .expectBody(Book.class).isEqualTo(newBook);
+                .returnResult(Book.class).getResponseBody();
+
+        assertThat(savedBook).usingRecursiveComparison().isEqualTo(newBook);
     }
 }

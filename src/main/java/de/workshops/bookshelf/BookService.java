@@ -23,9 +23,7 @@ public class BookService {
     }
 
     public Book getSingleBook(String isbn) {
-        return repository.getAllBooks().stream()
-                .filter(book -> hasIsbn(book, isbn))
-                .findFirst()
+       return repository.findByIsbn(isbn)
                 .orElseThrow(() -> new BookNotFoundException("Unknown ISBN: " + isbn));
     }
 
